@@ -1,1 +1,7 @@
 venv/
+
+#ignore datasets cause its too big
+datasets/
+
+#ignore models cause its too big
+models/
