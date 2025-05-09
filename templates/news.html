@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Articles</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="header">
+        <h1>News Articles</h1>
+    </div>
+    <div class="button-container">
+        <button onclick="window.location.href='/news'">Get News</button>
+        <button onclick="window.location.href='/predict'">Predict</button>
+        <button onclick="window.location.href='/statistics'">Statistics</button>
+    </div>
+    <div class="news-container">
+        <div class="news-list">
+            <ul>
+                {% for news in news_articles %}
+                <li>
+                    <h2>{{news.title}}</h2>
+                    <p>{{news.description}}</p>
+                    <p>{{news.content}}</p>
+                    <p>URL: <a href="{{news.url}}">{{news.url}}</a></p>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="button-container">
+        <button onclick="window.location.href='/'">Back to Home</button>
+    </div>
+</body>
+</html>
+

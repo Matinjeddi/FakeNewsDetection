@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predict News</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="header">
+        <h1>Predict News</h1>
+    </div>
+    <div class="button-container">
+        <button onclick="window.location.href='/news'">Get News</button>
+        <button onclick="window.location.href='/predict'">Predict</button>
+        <button onclick="window.location.href='/statistics'">Statistics</button>
+    </div>
+    <div class="form-container">
+        <form action="/predict" method="POST">
+            <textarea name="news" rows="10" cols="50" placeholder="Enter news article text here..." required></textarea>
+            <br>
+            <button type="submit">Predict</button>
+        </form>
+    </div>
+    {% if prediction %}
+    <div class="prediction-result">
+        <h2>Prediction: {{ prediction }}</h2>
+    </div>
+    {% endif %}
+    <div class="button-container">
+        <button onclick="window.location.href='/'">Back to Home</button>
+    </div>
+</body>
+</html>
+
