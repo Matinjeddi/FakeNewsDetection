@@ -1,7 +1,9 @@
 venv/
 
-#ignore datasets cause its too big
+#ignore datasets
 datasets/
 
-#ignore models cause its too big
+#ignore models
 models/
+
+__pycache__/

@@ -1,0 +1,194 @@
+import urllib.robotparser
+from urllib.parse import urlparse
+import torch
+import re
+from transformers import RobertaTokenizer, RobertaForSequenceClassification
+import newsapi
+from datetime import datetime
+import pytz
+
+news_api = newsapi.NewsApiClient(api_key=os.getenv('NEWS_API_KEY'))
+
+model_path = 'matinjeddi/fake-news-roberta-base'
+tokenizer = RobertaTokenizer.from_pretrained(model_path)
+model = RobertaForSequenceClassification.from_pretrained(model_path)
+
+def get_news(query, sort_by):
+    all_articles = news_api.get_everything(q=query, language='en', sort_by=sort_by)
+    articles = all_articles['articles']
+
+    # Convert UTC dates to local timezone
+    local_tz = pytz.timezone('Europe/Stockholm')  # or your preferred timezone
+    for article in articles:
+        if article.get('publishedAt'):
+            # Parse the UTC date
+            utc_date = datetime.strptime(article['publishedAt'], '%Y-%m-%dT%H:%M:%SZ')
+            local_date = utc_date.replace(tzinfo=pytz.UTC).astimezone(local_tz)
+            # Update the article's date
+            article['publishedAt'] = local_date.strftime('%Y-%m-%d %H:%M:%S')
+    
+    
+    return articles
+
+def predict_news(news):
+    inputs = tokenizer(news, return_tensors='pt', padding=True, truncation=True)
+    outputs = model(**inputs)
+    predictions = torch.argmax(outputs.logits, dim=1)
+    if predictions == 1:
+        return 'Real News'
+    elif predictions == 0:       
+        return 'Fake News'
+    
+def preprocess_text(text):
+    # Convert to lowercase
+    text = text.lower()
+    # Remove URLs
+    text = re.sub(r'http\S+|www\S+|https\S+', '', text, flags=re.MULTILINE)
+    # Remove special characters and digits
+    text = re.sub(r'\W', ' ', text)
+    text = re.sub(r'\d', ' ', text)
+    text = re.sub(r'\s+', ' ', text)
+    text = re.sub(r'\n', ' ', text)
+    # Remove extra whitespace
+    text = ' '.join(text.split())
+    return text
+
+def predict_confidence(news):
+    inputs = tokenizer(news, return_tensors='pt', padding=True, truncation=True)
+    outputs = model(**inputs)
+    probabilities = torch.nn.functional.softmax(outputs.logits, dim=1)
+    confidence = torch.max(probabilities) * 100
+    return confidence.item()
+
+def calculate_mean_confidence(predictions):
+    if not predictions:
+        return 0
+    # Convert percentage strings to decimal floats (e.g., "95.50%" -> 0.9550)
+    confidences = [float(pred.confidence.replace('%', '')) / 100 for pred in predictions]
+    # Calculate mean and convert back to percentage
+    return (sum(confidences) / len(confidences)) * 100
+
+def is_scraping_allowed(url, user_agent='*'):
+    parsed_url = urlparse(url)
+    robots_url = f"{parsed_url.scheme}://{parsed_url.netloc}/robots.txt"
+
+    rp = urllib.robotparser.RobotFileParser()
+    rp.set_url(robots_url)
+
+    try:
+        rp.read()
+        can_fetch = rp.can_fetch(user_agent, url)
+        print(f"Scraping allowed: {can_fetch}")
+        return can_fetch
+    except Exception as e:
+        return False
+
+def is_paywall(url):
+    # Common paywall indicators
+    paywall_indicators = [
+        'subscribe',
+        'sign in',
+        'log in',
+        'premium',
+        'membership',
+        'paywall',
+        'subscription',
+        'limited access',
+        'free trial',
+        'unlock',
+        'register to read',
+        'join now',
+        'become a member',
+        'digital subscription',
+        'subscribe to read',
+        'subscribe to continue',
+        'subscribe to view',
+        'subscribe to access',
+        'subscribe to unlock',
+        'subscribe to read more',
+        'subscribe to continue reading',
+        'subscribe to view more',
+        'subscribe to access more',
+        'subscribe to unlock more',
+        'subscribe to read the full article',
+        'subscribe to continue reading the full article',
+        'subscribe to view the full article',
+        'subscribe to access the full article',
+        'subscribe to unlock the full article'
+    ]
+    
+    # Check URL for paywall indicators
+    url_lower = url.lower()
+    if any(indicator in url_lower for indicator in paywall_indicators):
+        print("Paywall detected")
+        return False
+    
+    # Check for common paywall domains
+    paywall_domains = [
+        'wsj.com',  # Wall Street Journal
+        'nytimes.com',  # New York Times
+        'ft.com',  # Financial Times
+        'bloomberg.com',  # Bloomberg
+        'washingtonpost.com',  # Washington Post
+        'thetimes.co.uk',  # The Times
+        'theguardian.com',  # The Guardian (premium content)
+        'telegraph.co.uk',  # The Telegraph
+        'economist.com',  # The Economist
+        'newyorker.com',  # The New Yorker
+        'spectator.co.uk',  # The Spectator
+        'prospectmagazine.co.uk',  # Prospect Magazine
+        'foreignpolicy.com',  # Foreign Policy
+        'foreignaffairs.com',  # Foreign Affairs
+        'nature.com',  # Nature
+        'science.org',  # Science
+        'jstor.org',  # JSTOR
+        'sciencedirect.com',  # ScienceDirect
+        'springer.com',  # Springer
+        'wiley.com',  # Wiley
+        'tandfonline.com',  # Taylor & Francis
+        'sage.com',  # SAGE
+        'emerald.com',  # Emerald
+        'ieee.org',  # IEEE
+        'acm.org',  # ACM
+        'sciencedaily.com',  # Science Daily
+        'phys.org',  # Phys.org
+        'medicalnewstoday.com',  # Medical News Today
+        'healthline.com',  # Healthline
+        'webmd.com',  # WebMD
+        'mayoclinic.org',  # Mayo Clinic
+        'harvard.edu',  # Harvard
+        'mit.edu',  # MIT
+        'stanford.edu',  # Stanford
+        'oxford.ac.uk',  # Oxford
+        'cambridge.org',  # Cambridge
+        'princeton.edu',  # Princeton
+        'yale.edu',  # Yale
+        'berkeley.edu',  # Berkeley
+        'ucla.edu',  # UCLA
+        'caltech.edu',  # Caltech
+        'cornell.edu',  # Cornell
+        'columbia.edu',  # Columbia
+        'upenn.edu',  # University of Pennsylvania
+        'uchicago.edu',  # University of Chicago
+        'umich.edu',  # University of Michigan
+        'utexas.edu',  # University of Texas
+        'wisc.edu',  # University of Wisconsin
+        'illinois.edu',  # University of Illinois
+        'purdue.edu',  # Purdue
+        'gatech.edu',  # Georgia Tech
+        'cmu.edu',  # Carnegie Mellon
+        'jhu.edu',  # Johns Hopkins
+        'duke.edu',  # Duke
+        'northwestern.edu',  # Northwestern
+        'vanderbilt.edu',  # Vanderbilt
+        'rice.edu',  # Rice
+        'brown.edu',  # Brown
+        'dartmouth.edu',  # Dartmouth
+    ]
+
+    domain = urlparse(url).netloc.lower()
+    if any(paywall_domain in domain for paywall_domain in paywall_domains):
+        print("Paywall detected")
+        return False
+    print("No paywall detected")
+    return True

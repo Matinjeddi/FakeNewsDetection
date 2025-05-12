@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fake News Detection</title>
+    <title>About me</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="header">
-        <h1>Fake News Detection</h1>
+        <h1>About me</h1>
     </div>
     <div class="hamburger-menu">
         <input type="checkbox" id="menu-toggle"/>
@@ -25,15 +25,17 @@
             <a href="/about">About</a>
         </nav>
     </div>
-        <div class="content">
-            <h2>Welcome to the Fake News Detection System</h2>
-            <p>This system is designed to help you detect fake news articles.</p>
-            <p>You can use the system to predict if an article is fake or not.</p>
-            <p>You can also view the statistics of the system.</p>
-            <p>You can also view the news articles that are available.</p>
-            <p>The system is built on a fine tuned Roberta model trained on a dataset of fake and real news articles.</p>
-        </div>
-        <button id="theme-toggle" class="theme-toggle-btn">Light</button>
+    <div class="content">
+        <h4>My name is Matin and I am 28 years old.</h4>
+        <p>I am a student at Teknikhögskolan in Västerås, Sweden.</p>
+        <p>I am currently studying Python development with a focus on AI and machine learning.</p>
+        <p>I am interested in machine learning and artificial intelligence.</p>
+        <p>I am also interested in web development and web design.</p></p>
+    </div>
+    <div class="button-container">
+        <button onclick="window.location.href='/'">Back to Home</button>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn">Light</button>
 
         <script>
             const toggleBtn = document.getElementById('theme-toggle');
@@ -56,6 +58,3 @@
             </script>
 </body>
 </html>
-
-    
-

@@ -1,17 +1,29 @@
-Webb baserad prediktion av nyhetsartiklar med fine-tunade bert modeller och flask, html och css.
+Web-based prediction of news articles with fine-tuned BERT model and flask, html, css, javascript.
 
-#1 Starta en venv och ladda ner requirements.txt
+In notebooks are all files that were used to pre-process and train the models. 
 
-#2 Ladda ner WELFake datasetet
+To run the app directly:
 
-Gå in på https://www.kaggle.com/datasets/saurabhshahane/fake-news-classification och ladda ner datasetet och lägg till det under datasets mapp i denna repository. 
+#1 In the terminal run 'py -m venv venv' then './venv/Scripts/activate', and finally 'pip install -r requirements.txt'
 
-#3 Kör pre_processing_WEL.ipynb
+#2 Start a docker server and create a database called fake_newsd on that server
 
-#4 Om du har en GPU, kör Fine_tuning_BERT_models.ipynb direkt. Annars använd Google colab för gratis GPU.
+#3 Run 'py app.py' in the terminal
 
-#5 Ladda ner fake_or_real_news från Kaggle: https://www.kaggle.com/datasets/jillanisofttech/fake-or-real-news och lägg till den under datasets mappen.
+To use notebooks:
 
-#6 Kör pre_processing_fake_or_real_news.ipynb
+#1 Download https://www.kaggle.com/datasets/saurabhshahane/fake-news-classification, https://www.kaggle.com/datasets/jillanisofttech/fake-or-real-news and https://www.kaggle.com/datasets/mohamadalhasan/a-fake-news-dataset-around-the-syrian-war?resource=download and save them under datasets/ in this repo.
 
-#7 Kör analyzing_bert_models.ipynb
+#2 Run pre_processing_WEL.ipynb
+
+#3 run pre_processing_fake_or_real_news
+
+#4 run pre_processing_FA-KES.ipynb
+
+To train the models yourself: 
+
+If you have a GPU, run Fine_tuning_BERT_models.ipynb directly, otherwise you can use Google Colab.
+
+To analyze the models:
+
+Run analyzing_bert_models.ipynb and analyzing_roberta_FA-KES.ipynb
