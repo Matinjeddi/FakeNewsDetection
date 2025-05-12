@@ -85,8 +85,10 @@ def fetch_article():
                 response.encoding = 'utf-8'
                 soup = BeautifulSoup(response.text, 'html.parser')
                 
-                # Remove unwanted elements
-                for element in soup.find_all(['script', 'style', 'nav', 'header', 'footer', 'aside', 'form', 'button', 'input', 'select', 'iframe']):
+                # Remove unwanted elements including author information
+                for element in soup.find_all(['script', 'style', 'nav', 'header', 'footer', 'aside', 'form', 'button', 'input', 'select', 'iframe', 
+                                            'meta', 'link', 'author', 'span', 'div'], 
+                                           class_=re.compile(r'author|byline|writer|reporter|contributor|credit', re.I)):
                     element.decompose()
                 
                 # Try to find the main article content
@@ -100,8 +102,8 @@ def fetch_article():
                     cleaned_paragraphs = []
                     for p in paragraphs:
                         text = p.get_text(strip=True)
-                        # Skip empty paragraphs and very short ones
-                        if len(text) > 20:  # Minimum length for a paragraph
+                        # Skip empty paragraphs, very short ones, and author information
+                        if len(text) > 20 and not re.search(r'by\s+\w+\s+\w+|\w+\s+\w+\s+reports|\w+\s+\w+\s+writes', text, re.I):
                             # Clean the text
                             text = re.sub(r'\s+', ' ', text)  # Replace multiple spaces with single space
                             text = text.strip()
