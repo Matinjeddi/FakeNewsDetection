@@ -7,3 +7,5 @@ datasets/
 models/
 
 __pycache__/
+
+.env

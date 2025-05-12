@@ -6,6 +6,10 @@ from transformers import RobertaTokenizer, RobertaForSequenceClassification
 import newsapi
 from datetime import datetime
 import pytz
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 news_api = newsapi.NewsApiClient(api_key=os.getenv('NEWS_API_KEY'))
 
