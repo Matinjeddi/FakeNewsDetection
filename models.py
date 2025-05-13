@@ -17,4 +17,11 @@ class News(db.Model):
     def get_news():
         return News.query.all()
     
+    @staticmethod
+    def set_news(url, prediction, confidence):
+        news = News(url=url, prediction=prediction, confidence=confidence)
+        db.session.add(news)
+        db.session.commit()
+        print(f"News item added: {news}")
+    
 

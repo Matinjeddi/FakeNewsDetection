@@ -4,6 +4,7 @@ from models import *
 from flask_migrate import Migrate
 import atexit
 import signal 
+import sys
 
 app = Flask(__name__)
 app.secret_key = 'CaKaBaSa'
@@ -88,10 +89,7 @@ def predict():
         news_preprocessed = preprocess_text(news)
         prediction = predict_news(news_preprocessed)
         confidence = f"{predict_confidence(news_preprocessed):.2f}%"
-        news_item = News(url=url, prediction=prediction, confidence=confidence)
-        db.session.add(news_item)
-        db.session.commit()
-        print(f"News item added: {news_item}")
+        News.set_news(url, prediction, confidence)
         return render_template('predict.html', prediction=prediction, confidence=confidence)
     return render_template('predict.html', prefill_news=prefill_news, prefill_url=prefill_url)
 
@@ -121,6 +119,10 @@ def statistics():
 @app.route('/about')
 def about():
     return render_template('about.html')
+
+def signal_handler(sig, frame):
+    print('Shutting down gracefully...')
+    sys.exit(0)
 
 if __name__ == '__main__':
     # Register signal handlers
