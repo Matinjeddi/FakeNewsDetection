@@ -1,13 +1,7 @@
 from flask import Flask, request, render_template, redirect, url_for, session
-import requests
-from bs4 import BeautifulSoup
-from datetime import datetime
 from utils import *
 from models import *
-from flask_sqlalchemy import SQLAlchemy
-from flask_paginate import Pagination, get_page_parameter
 from flask_migrate import Migrate
-import re
 import sys
 import atexit
 import signal 
@@ -78,51 +72,7 @@ def fetch_article():
     url = request.form.get('article_url')
     article_text = ''
     if url:
-        try:
-            if not is_scraping_allowed(url) or not is_paywall(url):
-                article_text = 'Scraping is not allowed for this URL or it is a paywall.'
-            else:
-                headers = {
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-                }
-                response = requests.get(url, headers=headers, timeout=10)
-                response.encoding = 'utf-8'
-                soup = BeautifulSoup(response.text, 'html.parser')
-                
-                # Remove unwanted elements including author information
-                for element in soup.find_all(['script', 'style', 'nav', 'header', 'footer', 'aside', 'form', 'button', 'input', 'select', 'iframe', 
-                                            'meta', 'link', 'author', 'span', 'div'], 
-                                           class_=re.compile(r'author|byline|writer|reporter|contributor|credit', re.I)):
-                    element.decompose()
-                
-                # Try to find the main article content
-                article = soup.find('article') or soup.find('main') or soup.find('div', class_=re.compile(r'article|content|post|entry', re.I))
-                
-                if article:
-                    # Get only paragraphs from the article
-                    paragraphs = article.find_all('p')
-                    
-                    # Filter and clean paragraphs
-                    cleaned_paragraphs = []
-                    for p in paragraphs:
-                        text = p.get_text(strip=True)
-                        # Skip empty paragraphs, very short ones, and author information
-                        if len(text) > 20 and not re.search(r'by\s+\w+\s+\w+|\w+\s+\w+\s+reports|\w+\s+\w+\s+writes', text, re.I):
-                            # Clean the text
-                            text = re.sub(r'\s+', ' ', text)  # Replace multiple spaces with single space
-                            text = text.strip()
-                            cleaned_paragraphs.append(text)
-                    
-                    # Join paragraphs with double newlines
-                    article_text = '\n\n'.join(cleaned_paragraphs)
-
-                # If no content was found, return a message
-                if not article_text:
-                    article_text = 'Could not extract article content. The article might be behind a paywall or the content structure is not recognized.'
-                
-        except Exception as e:
-            print(f'Error fetching article: {e}')
-            article_text = 'Could not fetch article text. Please check the URL and try again.'
+        article_text = scrape_article(url)
         
         session['prefill_news'] = article_text
         session['prefill_url'] = url
