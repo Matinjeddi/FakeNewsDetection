@@ -2,7 +2,6 @@ from flask import Flask, request, render_template, redirect, url_for, session
 from utils import *
 from models import *
 from flask_migrate import Migrate
-import sys
 import atexit
 import signal 
 
@@ -12,11 +11,12 @@ app.secret_key = 'CaKaBaSa'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root@localhost/fake_newsd'
 db.init_app(app)  # Initialize db with app
 
-migrate = Migrate(app, db)
-migrate.init_app(app, db)
 # Create tables
 with app.app_context():
     db.create_all()
+
+migrate = Migrate(app, db)
+migrate.init_app(app, db)
 
 
 @app.route('/')
@@ -121,12 +121,6 @@ def statistics():
 @app.route('/about')
 def about():
     return render_template('about.html')
-
-
-def signal_handler(sig, frame):
-    print('Shutting down gracefully...')
-    sys.exit(0)
-
 
 if __name__ == '__main__':
     # Register signal handlers

@@ -10,6 +10,7 @@ import os
 from dotenv import load_dotenv
 import requests
 from bs4 import BeautifulSoup
+import sys
 
 load_dotenv()
 
@@ -247,3 +248,7 @@ def scrape_article(url):
             print(f'Error fetching article: {e}')
             article_text = 'Could not fetch article text. Please check the URL and try again.'
         return article_text
+
+def signal_handler(sig, frame):
+    print('Shutting down gracefully...')
+    sys.exit(0)
