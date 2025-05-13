@@ -8,6 +8,9 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_paginate import Pagination, get_page_parameter
 from flask_migrate import Migrate
 import re
+import sys
+import atexit
+import signal 
 
 app = Flask(__name__)
 app.secret_key = 'CaKaBaSa'
@@ -38,10 +41,11 @@ def news():
         # Store in session for pagination
         session['news_query'] = query
         session['news_sort_by'] = sort_by
-    else:
-        # Retrieve from session or use defaults
-        query = session.get('news_query', 'world')
-        sort_by = session.get('news_sort_by', 'relevancy')
+        # redirect to the news page with the new query and sort_by
+        return redirect(url_for('news', page=1, query=query, sort_by=sort_by))
+
+    query = session.get('news_query', 'world')
+    sort_by = session.get('news_sort_by', 'relevancy')
     
     # Get news articles
     news_articles = get_news(query, sort_by)
@@ -168,25 +172,18 @@ def statistics():
 def about():
     return render_template('about.html')
 
+
+def signal_handler(sig, frame):
+    print('Shutting down gracefully...')
+    sys.exit(0)
+
+
 if __name__ == '__main__':
+    # Register signal handlers
+    signal.signal(signal.SIGINT, signal_handler)
+    signal.signal(signal.SIGTERM, signal_handler)
+    
+    # Register cleanup function
+    atexit.register(lambda: print('Cleaning up...'))
+    
     app.run(debug=True)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
