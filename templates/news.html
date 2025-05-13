@@ -27,7 +27,7 @@
     </div>
     <div class="news-container">
         <div class="query-container">
-            <form action="/news" method="POST">
+            <form action="{{ url_for('news') }}" method="POST">
                 <input type="text" name="query" placeholder="Search for news" value="{{ current_query }}">
                 <button type="submit">Search</button>
                 <select name="sort_by">
@@ -44,9 +44,10 @@
                     <h2>{{news.title}}</h2>
                     <p class="category">Description:</p>
                     <p>{{news.description}}</p>
-                    <p class="category">Content:</p>
-                    <p>{{news.content}}</p>
-                    <img src="{{news.urlToImage}}" alt="News Image" style="width: 200px; height: 200px;">
+                    <img src="{{news.urlToImage}}" 
+                    alt="News Image" 
+                    style="width: 200px; height: 200px; object-fit: cover;"
+                    onerror="this.onerror=null; this.src='{{ url_for('static', filename='img/news.jpg') }}';">
                     <p class="category">Date: <p>{{news.publishedAt}}</p></p>
                     <p class="category">URL: <a href="{{news.url}}" target="_blank" rel="noopener noreferrer">{{news.url}}</a></p>
                     <form action="/fetch_article" method="post" style="margin-top: 0.5rem;">
