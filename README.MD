@@ -14,7 +14,7 @@ To run the app directly:
 
 To use notebooks:
 
-#1 Download https://www.kaggle.com/datasets/saurabhshahane/fake-news-classification, https://www.kaggle.com/datasets/jillanisofttech/fake-or-real-news and https://www.kaggle.com/datasets/mohamadalhasan/a-fake-news-dataset-around-the-syrian-war?resource=download and save them under datasets/ in this repo.
+#1 Download https://zenodo.org/records/4561253, https://www.kaggle.com/datasets/jillanisofttech/fake-or-real-news and https://zenodo.org/records/2607278 and save them under datasets/ in this repo.
 
 #2 Run pre_processing_WEL.ipynb
 
