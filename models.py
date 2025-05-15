@@ -5,7 +5,7 @@ db = SQLAlchemy()
 
 class News(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.DateTime, default=datetime.now)
+    date = db.Column(db.DateTime, nullable=False, default=datetime.now)
     url = db.Column(db.String(255), nullable=False)
     prediction = db.Column(db.String(12), nullable=False)
     confidence = db.Column(db.String(12), nullable=False)
