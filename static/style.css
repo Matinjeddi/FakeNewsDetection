@@ -1,3 +1,8 @@
+:root {
+    --primary-color: #2196F3;  /* Blue */
+    --secondary-color: #64B5F6;  /* Light blue */
+}
+
 body {
     background: #181818;
     color: #f5f5f5;
@@ -12,7 +17,7 @@ body {
     font-size: 2.5rem;
     font-weight: bold;
     letter-spacing: 2px;
-    color: #ffb366;
+    color: #2196F3;
 }
 
 .button-container {
@@ -23,7 +28,7 @@ body {
 }
 
 .button-container button, .button-container form button {
-    background: #ffb366;
+    background: #2196F3;
     color: #181818;
     border: none;
     border-radius: 20px;
@@ -34,13 +39,13 @@ body {
     transition: background 0.2s;
 }
 .button-container button:hover, .button-container form button:hover {
-    background: #ff6600;
+    background: #64B5F6;
     color: #fff;
 }
 
 /* Ny stil för 'Analysera denna artikel'-knapp */
 .news-list form button {
-    background: #ff6600;
+    background: #64B5F6;
     color: #fff;
     border: none;
     border-radius: 18px;
@@ -54,7 +59,7 @@ body {
     margin-left: 0;
 }
 .news-list form button:hover {
-    background: #ffb366;
+    background: #2196F3;
     color: #181818;
     box-shadow: 0 4px 16px rgba(255,179,102,0.18);
 }
@@ -70,7 +75,7 @@ body {
 }
 
 .navbar a {
-    color: #ffb366;
+    color: #2196F3;
     text-decoration: none;
     font-weight: 500;
     font-size: 1.1rem;
@@ -80,7 +85,7 @@ body {
 }
 
 .navbar a:hover {
-    background: #ff6600;
+    background: #64B5F6;
     color: #fff;
 }
 
@@ -120,14 +125,14 @@ body {
 
 .news-list h2 {
     font-size: 1.3rem;
-    color: #ffb366;
+    color: #2196F3;
     margin: 0 0 0.5rem 0;
 }
 
 .news-list .category {
     text-align: center;
     margin: 0.5rem 0;
-    color: #ffb366;
+    color: #2196F3;
     font-weight: 600;
 }
 
@@ -138,7 +143,7 @@ body {
 }
 
 .news-list a {
-    color: #ff6600;
+    color: #64B5F6;
     text-decoration: underline;
     word-break: break-all;
 }
@@ -158,7 +163,7 @@ body {
 .form-container textarea {
     width: 100%;
     border-radius: 12px;
-    border: 2px solid #ffb366;
+    border: 2px solid #2196F3;
     padding: 1rem;
     font-size: 1rem;
     background: #181818;
@@ -169,13 +174,13 @@ body {
     transition: border 0.2s, box-shadow 0.2s;
 }
 .form-container textarea:focus {
-    border: 2px solid #ff6600;
+    border: 2px solid #64B5F6;
     box-shadow: 0 4px 16px rgba(255,102,0,0.12);
     outline: none;
 }
 
 .form-container button {
-    background: #ffb366;
+    background: #2196F3;
     color: #181818;
     border: none;
     border-radius: 20px;
@@ -186,7 +191,7 @@ body {
     transition: background 0.2s;
 }
 .form-container button:hover {
-    background: #ff6600;
+    background: #64B5F6;
     color: #fff;
 }
 
@@ -201,7 +206,7 @@ body {
 }
 
 .prediction-result h2, .statistics-container h2, .statistics-container h3 {
-    color: #ffb366;
+    color: #2196F3;
     margin-bottom: 1rem;
 }
 
@@ -261,7 +266,7 @@ body {
     display: block;
     height: 4px;
     width: 100%;
-    background: #ffb366;
+    background: #2196F3;
     border-radius: 2px;
     transition: 0.3s;
 }
@@ -288,7 +293,7 @@ body {
 }
 
 .menu a {
-    color: #ffb366;
+    color: #2196F3;
     text-decoration: none;
     font-size: 1.2rem;
     font-weight: 600;
@@ -298,7 +303,7 @@ body {
 }
 
 .menu a:hover {
-    background: #ff6600;
+    background: #64B5F6;
     color: #fff;
 }
 
@@ -356,7 +361,7 @@ body {
     top: 1.5rem;
     right: 2rem;
     z-index: 2000;
-    background: #ffb366;
+    background: #2196F3;
     color: #181818;
     border: none;
     border-radius: 20px;
@@ -367,7 +372,7 @@ body {
     transition: background 0.2s, color 0.2s;
 }
 .theme-toggle-btn:hover {
-    background: #ff6600;
+    background: #64B5F6;
     color: #fff;
 }
 
@@ -377,7 +382,7 @@ body.light-theme {
     color: #181818;
 }
 body.light-theme .header {
-    color: #ffb366;
+    color: #2196F3;
 }
 body.light-theme .prediction-result,
 body.light-theme .statistics-container,
@@ -392,34 +397,34 @@ body.light-theme .menu {
     background: #eee;
 }
 body.light-theme .menu a {
-    color: #ff6600;
+    color: #64B5F6;
 }
 body.light-theme .menu a:hover {
-    background: #ffb366;
+    background: #2196F3;
     color: #181818;
 }
 body.light-theme .news-list h2{
-    color: #ffb366;
+    color: #2196F3;
 }
 body.light-theme .prediction-result h2,
 body.light-theme .statistics-container h2,
 body.light-theme .statistics-container h3 {
-    color: #ff6600;
+    color: #64B5F6;
 }
 body.light-theme .news-list p,
 body.light-theme .statistics-container li {
     color: #222;
 }
 body.light-theme .news-list a {
-    color: #ff6600;
+    color: #64B5F6;
 }
 body.light-theme .form-container textarea {
     background: #f5f5f5;
     color: #181818;
-    border: 2px solid #ff6600;
+    border: 2px solid #64B5F6;
 }
 body.light-theme .form-container textarea:focus {
-    border: 2px solid #ffb366;
+    border: 2px solid #2196F3;
     box-shadow: 0 4px 16px rgba(255,179,102,0.12);
 }
 body.light-theme .news-list form button,
@@ -427,7 +432,7 @@ body.light-theme .form-container button,
 body.light-theme .button-container button,
 body.light-theme .button-container form button,
 body.light-theme .theme-toggle-btn {
-    background: #ff6600;
+    background: #64B5F6;
     color: #fff;
 }
 body.light-theme .news-list form button:hover,
@@ -435,7 +440,7 @@ body.light-theme .form-container button:hover,
 body.light-theme .button-container button:hover,
 body.light-theme .button-container form button:hover,
 body.light-theme .theme-toggle-btn:hover {
-    background: #ffb366;
+    background: #2196F3;
     color: #181818;
 }
 body.light-theme .statistics-container li {
@@ -467,7 +472,7 @@ body.light-theme #predictionChart {
 .query-container input[type="text"] {
     padding: 0.7rem 1.2rem;
     border-radius: 20px;
-    border: 2px solid #ffb366;
+    border: 2px solid #2196F3;
     background: #181818;
     color: #fff;
     font-size: 1rem;
@@ -477,12 +482,12 @@ body.light-theme #predictionChart {
     box-shadow: 0 2px 8px rgba(255,179,102,0.08);
 }
 .query-container input[type="text"]:focus {
-    border: 2px solid #ff6600;
+    border: 2px solid #64B5F6;
     background: #232323;
 }
 
 .query-container button {
-    background: #ffb366;
+    background: #2196F3;
     color: #181818;
     border: none;
     border-radius: 20px;
@@ -493,7 +498,7 @@ body.light-theme #predictionChart {
     transition: background 0.2s, color 0.2s;
 }
 .query-container button:hover {
-    background: #ff6600;
+    background: #64B5F6;
     color: #fff;
 }
 
@@ -501,18 +506,18 @@ body.light-theme #predictionChart {
 body.light-theme .query-container input[type="text"] {
     background: #fff;
     color: #181818;
-    border: 2px solid #ff6600;
+    border: 2px solid #64B5F6;
 }
 body.light-theme .query-container input[type="text"]:focus {
     background: #f5f5f5;
-    border: 2px solid #ffb366;
+    border: 2px solid #2196F3;
 }
 body.light-theme .query-container button {
-    background: #ff6600;
+    background: #64B5F6;
     color: #fff;
 }
 body.light-theme .query-container button:hover {
-    background: #ffb366;
+    background: #2196F3;
     color: #181818;
 }
 
@@ -520,7 +525,7 @@ body.light-theme .query-container button:hover {
 .form-container input[name="news_url"] {
     width: 100%;
     border-radius: 12px;
-    border: 2px solid #ffb366;
+    border: 2px solid #2196F3;
     padding: 0.7rem 1rem;
     font-size: 1rem;
     background: #181818;
@@ -532,7 +537,7 @@ body.light-theme .query-container button:hover {
 }
 .form-container textarea[name="news_url"]:focus,
 .form-container input[name="news_url"]:focus {
-    border: 2px solid #ff6600;
+    border: 2px solid #64B5F6;
     background: #232323;
     color: #fff;
     outline: none;
@@ -543,25 +548,25 @@ body.light-theme .form-container textarea[name="news_url"],
 body.light-theme .form-container input[name="news_url"] {
     background: #fff;
     color: #181818;
-    border: 2px solid #ff6600;
+    border: 2px solid #64B5F6;
 }
 body.light-theme .form-container textarea[name="news_url"]:focus,
 body.light-theme .form-container input[name="news_url"]:focus {
     background: #f5f5f5;
-    border: 2px solid #ffb366;
+    border: 2px solid #2196F3;
     color: #181818;
 }
 
 .query-container select {
     padding: 0.7rem 1.2rem;
     border-radius: 20px;
-    border: 2px solid #ffb366;
+    border: 2px solid #2196F3;
     background: #181818;
-    color: #ffb366;
+    color: #2196F3;
 }
 
 .query-container select:focus {
-    border: 2px solid #ff6600;
+    border: 2px solid #64B5F6;
     background: #232323;
     color: #fff;
 }
@@ -572,17 +577,17 @@ body.light-theme .form-container input[name="news_url"]:focus {
 }
 
 .query-container select option:hover {
-    background: #ff6600;
+    background: #64B5F6;
     color: #fff;
 }
 
 .query-container select option:focus {
-    background: #ff6600;
+    background: #64B5F6;
     color: #fff;
 }
 
 .query-container select option:active {
-    background: #ff6600;
+    background: #64B5F6;
     color: #fff;
 }
 
@@ -616,7 +621,7 @@ body.light-theme .form-container input[name="news_url"]:focus {
 }
 
 .prediction-item p:first-child {
-    color: #ffb366;
+    color: #2196F3;
     font-weight: 600;
 }
 
@@ -631,7 +636,7 @@ body.light-theme .form-container input[name="news_url"]:focus {
 }
 
 .pagination-btn {
-    background: #ffb366;
+    background: #2196F3;
     color: #181818;
     padding: 0.7rem 1.5rem;
     border-radius: 20px;
@@ -643,7 +648,7 @@ body.light-theme .form-container input[name="news_url"]:focus {
 }
 
 .pagination-btn:hover {
-    background: #ff6600;
+    background: #64B5F6;
     color: #fff;
     transform: translateY(-2px);
 }
@@ -665,16 +670,16 @@ body.light-theme .prediction-item p {
 }
 
 body.light-theme .prediction-item p:first-child {
-    color: #ff6600;
+    color: #64B5F6;
 }
 
 body.light-theme .pagination-btn {
-    background: #ff6600;
+    background: #64B5F6;
     color: #fff;
 }
 
 body.light-theme .pagination-btn:hover {
-    background: #ffb366;
+    background: #2196F3;
     color: #181818;
 }
 
@@ -699,15 +704,15 @@ body.light-theme .pagination-info {
 
 /* Disclaimer styling */
 .disclaimer {
-    background: rgba(255, 102, 0, 0.1);
-    border: 1px solid #ff6600;
+    background: rgba(33, 150, 243, 0.1);
+    border: 1px solid #2196F3;
     border-radius: 8px;
     padding: 1rem;
     margin: 1rem auto;
     max-width: 800px;
     text-align: center;
     font-size: 0.9rem;
-    color: #ffb366;
+    color: #2196F3;
     box-shadow: 0 2px 8px rgba(255, 102, 0, 0.1);
 }
 
@@ -718,9 +723,9 @@ body.light-theme .pagination-info {
 
 /* Light theme override */
 body.light-theme .disclaimer {
-    background: rgba(255, 102, 0, 0.05);
-    border-color: #ffb366;
-    color: #ff6600;
+    background: rgba(33, 150, 243, 0.05);
+    border-color: #2196F3;
+    color: #64B5F6;
 }
 
 /* Mobile responsiveness */
