@@ -1,6 +1,6 @@
 Web-based prediction of news articles with fine-tuned BERT model and flask, html, css, javascript.
 
-In notebooks are all files that were used to pre-process and train the models. 
+In notebooks/ are all files that were used to pre-process and train the models. 
 
 To run the app directly:
 
