@@ -72,26 +72,30 @@ def news():
 def fetch_article():
     url = request.form.get('article_url')
     article_text = ''
+    news_title = request.form.get('news_title', '')
     if url:
         article_text = scrape_article(url)
         
         session['prefill_news'] = article_text
         session['prefill_url'] = url
+        session['news_title'] = news_title
     return redirect(url_for('predict'))
 
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
     prefill_news = session.pop('prefill_news', '')
     prefill_url = session.pop('prefill_url', '')
+    news_title = session.pop('news_title', '')
     if request.method == 'POST':
         news = request.form['news']
         url = request.form.get('news_url', '')
         news_preprocessed = preprocess_text(news)
+        news_title = request.form.get('news_title', '')
         prediction = predict_news(news_preprocessed)
         confidence = f"{predict_confidence(news_preprocessed):.2f}%"
-        News.set_news(url, prediction, confidence)
-        return render_template('predict.html', prediction=prediction, confidence=confidence)
-    return render_template('predict.html', prefill_news=prefill_news, prefill_url=prefill_url)
+        News.set_news(url, prediction, confidence, news_title)
+        return render_template('predict.html', prediction=prediction, confidence=confidence, news_title=news_title)
+    return render_template('predict.html', prefill_news=prefill_news, prefill_url=prefill_url, news_title=news_title)
 
 @app.route('/statistics')
 def statistics():

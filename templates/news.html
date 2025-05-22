@@ -51,6 +51,7 @@
                     <p class="category">Date: <p>{{news.publishedAt}}</p></p>
                     <p class="category">URL: <a href="{{news.url}}" target="_blank" rel="noopener noreferrer">{{news.url}}</a></p>
                     <form action="/fetch_article" method="POST" style="margin-top: 0.5rem;">
+                        <input type="hidden" name="news_title" value="{{news.title}}">
                         <input type="hidden" name="article_url" value="{{news.url}}">
                         <button type="submit">Analyze Article</button>
                     </form>
