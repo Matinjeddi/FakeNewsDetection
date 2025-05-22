@@ -71,7 +71,7 @@
                 <h3>Recent Predictions</h3>
                 {% for prediction in pagination.items %}
                     <div class="prediction-item">
-                        <p>Title: {{ prediction.title }}</p>
+                        <p>{{ prediction.title }}</p>
                         <p>Date: {{ prediction.date.strftime('%Y-%m-%d %H:%M:%S') }}</p>
                         <p>Prediction: {{ prediction.prediction }}</p>
                         <p>Confidence: {{ prediction.confidence }}</p>
